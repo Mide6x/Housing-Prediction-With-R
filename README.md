@@ -48,6 +48,20 @@ The discussion might be done in a power point.
 This data was sourced from S&P CoreLogic Case-Shiller 20-City Home Price Sales Pair Counts (SPCS20RPSNSA).
 Link to the data here: https://fred.stlouisfed.org/series/SPCS20RPSNSA
 
+## Installing libraries
+After succesfully installing R on your device from here: https://cran.r-project.org/bin/macosx/
+open your terminal and type R to initialize it, then run:
+
+install.packages(forecast)
+install.packages(tseries)
+install.packages(tidyverse)
+
+## Getting the results in a HTML format
+To knit this R Markdown document to HTML, follow these steps:
+1. Save the R Markdown file with a `.Rmd` extension.
+2. Click on the "Knit" button in RStudio, or use the `rmarkdown::render()` function in the R console (if using VS Code).
+This will generate an HTML document containing your R code, its output, and any text or explanations you included in the document. You can then view the HTML file in your web browser.
+
 ## Note
 I had to learn R on this project and these code might not be accurate and the analysis might not be exhaustive.
 

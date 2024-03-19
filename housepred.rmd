@@ -27,3 +27,17 @@ CaseShiller <- read.csv("SPCS20RPSNSA.csv")
 # Check data import
 head(CaseShiller)
 ```
+
+```{r}
+# Change name of data column to Units
+names(CaseShiller)[2] <- "Units"
+
+# Creates a Units Object as intermediate to transform into time series
+CSUnits <- CaseShiller$Units
+
+# Creates Time Series Object that starts in January 2000 with a monthly frequency
+tCaseShiller <- ts(CSUnits, start = c(2000, 1), frequency = 12)
+
+# Check Data Transformation
+tCaseShiller
+```
