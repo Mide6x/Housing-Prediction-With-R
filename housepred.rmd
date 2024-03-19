@@ -22,22 +22,74 @@ setwd("/Users/nolimitmide/Desktop/House Price Prediction with R")
 
 ```{r}
 # importing our data
-CaseShiller <- read.csv("SPCS20RPSNSA.csv")
+house_data <- read.csv("SPCS20RPSNSA.csv")
 
 # Check data import
-head(CaseShiller)
+head(house_data)
 ```
 
 ```{r}
 # Change name of data column to Units
-names(CaseShiller)[2] <- "Units"
+names(house_data)[2] <- "Units" 
 
 # Creates a Units Object as intermediate to transform into time series
-CSUnits <- CaseShiller$Units
+hd_units <- house_data$Units
 
-# Creates Time Series Object that starts in January 2000 with a monthly frequency
-tCaseShiller <- ts(CSUnits, start = c(2000, 1), frequency = 12)
+# Creates Time Series Object that starts in January with a monthly frequency
+thouse_data <- ts(hd_units, start = c(2000, 1), frequency = 12) #nolint
 
 # Check Data Transformation
-tCaseShiller
+thouse_data
+```
+
+```{r}
+# Automatically create ARIMA model
+fit <- auto.arima(thouse_data)
+fit
+```
+
+```{r}
+# Check Accuracy
+accuracy(fit)
+```
+
+```{r}
+# Create a Simple Plot with a forecast for the next year
+plot(forecast(fit, 12), xlab = "Date", ylab = "Units", main = "ARIMA Forecast for Case-Shiller Index") #nolint
+```
+
+```{r}
+# Get table of forecasted values. 
+pred_values <- forecast(fit, 12)
+pred_values
+```
+
+# Checking our assumptions
+
+```{r}
+# Check assumptions of normality & Autocorrelation
+qqnorm(fit$residuals)
+qqline(fit$residuals)
+Box.test(fit$residuals, type = "Ljung-Box")
+# Has high p-value, so autocorrelations not significantly different than 0
+# There are a few possible outliers, but most of the data is normally distributed
+```
+
+```{r}
+# Transform time series to log scale
+lthouse_data <- log(thouse_data)
+# check if it worked
+head(lthouse_data)
+```
+
+```{r}
+# Create new fit on log scale series for seasonal decomposition
+fit2 <- stl(lthouse_data, s.window = "period")
+# Plot Seasonal Decomposition
+plot(fit2, main = "Seasonal Decomposition of log(Case-Shiller Units)")
+```
+
+```{r}
+# Create a Season Plot
+ggseasonplot(thouse_data, year.labels = TRUE, col = rainbow(20))
 ```

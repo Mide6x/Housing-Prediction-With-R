@@ -2,14 +2,11 @@
 
 ## Introduction
 This is an assignment given in my DAT 611 course and it seemed rather challenging. This is a full process done with R which includes:
+### MODEL: ARIMA (AutoRegressive Integrated Moving Average)
 
 
 ## Ojectives 
--> Predict the next year of US housing prices
--> Get experience with using real economic data
--> Visualize the data
--> Understand underlying assumptions about the data
--> Learn about predictive modeling using the ARIMA method
+a. Predict the next year of US housing prices, b. Get experience with using real economic data, c. Visualize the data, d. Understand underlying assumptions about the data, e. Learn about predictive modeling using the ARIMA method
 
 ## Detailed Objectives
 ### 1. Data Sourcing and Loading:
@@ -52,8 +49,8 @@ Link to the data here: https://fred.stlouisfed.org/series/SPCS20RPSNSA
 After succesfully installing R on your device from here: https://cran.r-project.org/bin/macosx/
 open your terminal and type R to initialize it, then run:
 
-install.packages(forecast)
-install.packages(tseries)
+install.packages(forecast), 
+install.packages(tseries), 
 install.packages(tidyverse)
 
 ## Getting the results in a HTML format
