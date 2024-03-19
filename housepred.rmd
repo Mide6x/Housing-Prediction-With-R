@@ -1,0 +1,21 @@
+---
+title: "Predicting Housing Prices with ARIMA models"
+author: "Olumide Adewole"
+date: "19/03/2024"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Import Libraries
+library(forecast)
+library(tseries)
+library(tidyverse)
+```
+
+```{r}
+setwd("/Users/nolimitmide/Desktop/House Price Prediction with R/housepred.rmd")
+```
