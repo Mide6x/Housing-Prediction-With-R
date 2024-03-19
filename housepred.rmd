@@ -17,5 +17,13 @@ library(tidyverse)
 ```
 
 ```{r}
-setwd("/Users/nolimitmide/Desktop/House Price Prediction with R/housepred.rmd")
+setwd("/Users/nolimitmide/Desktop/House Price Prediction with R")
+```
+
+```{r}
+# importing our data
+CaseShiller <- read.csv("SPCS20RPSNSA.csv")
+
+# Check data import
+head(CaseShiller)
 ```
