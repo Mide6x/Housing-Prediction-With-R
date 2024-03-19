@@ -30,13 +30,16 @@ head(house_data)
 
 ```{r}
 # Change name of data column to Units
-names(house_data)[2] <- "Units" 
+names(house_data)[2] <- "Units"
 
 # Creates a Units Object as intermediate to transform into time series
 hd_units <- house_data$Units
 
 # Creates Time Series Object that starts in January with a monthly frequency
-thouse_data <- ts(hd_units, start = c(2000, 1), frequency = 12) #nolint
+thouse_data <- ts(hd_units,
+  start = c(2000, 1),
+  frequency = 12
+)
 
 # Check Data Transformation
 thouse_data
@@ -55,11 +58,15 @@ accuracy(fit)
 
 ```{r}
 # Create a Simple Plot with a forecast for the next year
-plot(forecast(fit, 12), xlab = "Date", ylab = "Units", main = "ARIMA Forecast for Case-Shiller Index") #nolint
+plot(forecast(fit, 12),
+  xlab = "Date",
+  ylab = "Units",
+  main = "ARIMA Forecast for Case-Shiller House Data"
+)
 ```
 
 ```{r}
-# Get table of forecasted values. 
+# Get table of forecasted values.
 pred_values <- forecast(fit, 12)
 pred_values
 ```
@@ -92,4 +99,49 @@ plot(fit2, main = "Seasonal Decomposition of log(Case-Shiller Units)")
 ```{r}
 # Create a Season Plot
 ggseasonplot(thouse_data, year.labels = TRUE, col = rainbow(20))
+```
+
+```{r}
+# Automatically create ARIMA model
+fit3 <- auto.arima(lthouse_data)
+fit3
+```
+
+# second model accuracy checking
+
+```{r}
+# Check Accuracy
+fit_accuracy <- data.frame(accuracy(fit))
+fit_accuracy2 <- data.frame(accuracy(fit3))
+final_fit_accuracy <- rbind(fit_accuracy, fit_accuracy2)
+final_fit_accuracy
+```
+
+```{r}
+# Create a Simple Plot with a logged forecast for the next year
+plot(forecast(fit3, 12),
+  xlab = "Date",
+  ylab = "Units",
+  main = "ARIMA Forecast for Case-Shiller Hpuse Data"
+)
+```
+
+```{r}
+# Get table of forecasted values.
+
+# Original Data
+pred_values <- data.frame(forecast(fit, 12))
+
+# Log transformed data
+pred_values2 <- data.frame(forecast(fit3, 12))
+pred_values2[, 1:5] <- exp(pred_values2[, 1:5])
+
+# Merge forecast predictions!
+merged_df <- data.frame(
+  Date = rownames(pred_values),
+  Original_Data_Forecast = pred_values$Point.Forecast,
+  Log_Transformed_Data_Forecast = pred_values2$Point.Forecast,
+  Difference = round(pred_values$Point.Forecast - pred_values2$Point.Forecast, 2) #nolint
+)
+merged_df
 ```

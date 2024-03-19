@@ -62,6 +62,10 @@ This will generate an HTML document containing your R code, its output, and any 
 ## Note
 I had to learn R on this project and these code might not be accurate and the analysis might not be exhaustive.
 
+## Printing output to HTML file
+Ensure that you have Pandoc installed, if not, install it here: https://pandoc.org/installing.html
+Write this command inside your R Terminal: rmarkdown::render("name of rmd file")
+
 ## Other Details
 R Libraries Used: tidyverse, forecast, tseries
 
